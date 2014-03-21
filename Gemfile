@@ -7,6 +7,7 @@ gem 'databasedotcom'
 gem 'httparty'
 gem 'rjmetrics-client'
 gem 'figaro'
+gem 'jquery-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
