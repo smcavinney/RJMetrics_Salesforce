@@ -1,0 +1,60 @@
+# README
+
+## Usage
+
+Need to get your Salesforce Data into RJMetrics,
+ but don't want to mess with apex and/or SOQL?
+Here is the solution!
+
+This app contains a rake task that, when run,
+will grab all of the relevant collections and
+fields from Salesforce, and push them to your
+RJMetrics datawarehouse. From there you can do
+[all sorts of stuff](http://rjmetrics.com/product) and relate it back to your
+transactional or payment database.
+
+__ PLEASE NOTE: __
+This app is not endorsed or supported by RJMetrics Inc. or Salesforce.com
+This app will have a lot of api calls on your SalesforceDatabase.
+You can exclude specific collections by adding them to the skipped_tables array as below.
+
+skipped_tables line 20:
+
+    skipped_tables = ["LeadFeed", "AccountFeed", "ContactHistory", "LoginHistory", "OpportunityHistory", "LeadHistory" ]
+
+
+
+## Get started!
+To get started, clone this project to your own repo.
+
+Run:
+
+    bundle install
+and then:
+
+    rails generate figaro:install
+
+[Figaro](https://github.com/laserlemon/figaro) is a gem that takes care of
+environmental variables, and make it easy to push them to heroku, which is where you can
+host this app for free.
+
+Once you run the figaro generator, you need to set up your enviroment variables.
+Open config/application.yml and enter in your Salesforce Credentials, like below.
+
+    # Add application configuration variables here, as shown below
+
+    DATABASEDOTCOM_CLIENT_SECRET:
+    DATABASEDOTCOM_CLIENT_ID:
+    SF_USERNAME:
+    SF_PASSWORD:
+    RJ_KEY:
+    RJ_ID:
+
+If you have questions about where to find these keys or values
+please refer to the [RJMetrics API Docs](developers.rjmetrics.com) or the
+[DatabaseDotCom](https://github.com/heroku/databasedotcom).
+
+Once you have all of that set up, you push it to heroku. Use the free [Heroku Scheduler](https://addons.heroku.com/scheduler)
+to automate that task to run.
+
+![heroku](images/heroku_scheduler.png)
