@@ -19,8 +19,7 @@ task :sync_events => :environment do
 	client = Databasedotcom::Client.new
 	client.authenticate :username => ENV["SF_USERNAME"], :password => ENV["SF_PASSWORD"]  #=> "the-oauth-token"
 	skipped_tables = ["LeadFeed", "AccountFeed", "ContactHistory", "LoginHistory", "OpportunityHistory", "LeadHistory" ]
-	#rj_client = Client.new(ENV["RJ_ID"].to_i, ENV["RJ_KEY"])
-	rj_client = RJMetricsClient.new(2, "3d1f18ca548fb694b11ae4c309060f5d")
+	rj_client = Client.new(ENV["RJ_ID"].to_i, ENV["RJ_KEY"])
 	if rj_client.authenticated?
 	    puts 'authed!'
 	else
