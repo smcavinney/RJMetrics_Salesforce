@@ -31,7 +31,7 @@ task :sync_events => :environment do
   relevant_tables = syncer.filter_sobjects(skipped_tables)
   relevant_tables = [relevant_tables[0]]
 
-  relevant_tables.map{|sobject|
+  relevant_tables.map do |sobject|
     records = []
 
     begin
@@ -49,5 +49,5 @@ task :sync_events => :environment do
     formatted_records.each_slice(100) {|records_to_push|
       rjpush(records_to_push, sobject, rj_client)
     }
-  }
+  end
 end
