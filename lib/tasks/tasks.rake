@@ -19,16 +19,17 @@ task :sync_events => :environment do
   syncer = SyncEvents.new(client, rj_client)
 
   relevant_tables = syncer.filter_sobjects(skipped_tables)
-  relevant_tables = [relevant_tables[0]]
+
+  puts relevant_tables.count
 
   relevant_tables.map do |sobject|
     records = []
-
-    begin
+    puts sobject + " in the task.rake file"
+    #begin
       records = syncer.get_records_for(sobject)
-    rescue
-      puts 'Cannot be queried'
-    end
+    #rescue
+    #  puts 'Cannot be queried'
+    #end
 
   end
 end

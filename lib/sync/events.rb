@@ -13,6 +13,7 @@ class SyncEvents
 
   def get_records_for(sobject)
     puts "retrieving records for #{sobject}"
+    puts "sobject to string = " + sobject.to_s
     records =  @client.materialize(sobject.to_s).all
     paged_records = []
     # SalesForce returns data in pages of 250(? SHAWUN CONFIRM?) records at a time, add all the records to a new array
@@ -21,24 +22,25 @@ class SyncEvents
     records.map(&retrieve_records)
 
     while records.next_page?
-      puts "records while loop"
+      puts "#{sobject} records while loop"
       paged_records.each_slice(100) {|records_to_push|
         rjpush(records_to_push, sobject)
       }
       paged_records = []
-      record = records.next_page
-      record.map(&retrieve_records)
+      records = records.next_page
+      records.map(&retrieve_records)
     end
-
-    paged_records
   end
 
   def rjpush(object_array, sobject)
       formatted_records = object_array.map{|record| format_record(record) }
+      puts sobject + " before gsub"
       sobject = sobject.gsub("__", "_")
+      puts sobject + " after gsub"
       if @rj_client.authenticated?
-          puts "starting rj push"
-          return @rj_client.pushData(sobject, formatted_records)
+          puts "#{sobject} - starting rj push"
+          puts formatted_records
+          @rj_client.pushData(sobject, formatted_records)
           puts "created"
       else
           puts 'rj not authenticated'
