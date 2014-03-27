@@ -39,7 +39,6 @@ class SyncEvents
       puts sobject + " after gsub"
       if @rj_client.authenticated?
           puts "#{sobject} - starting rj push"
-          puts formatted_records
           @rj_client.pushData(sobject, formatted_records)
           puts "created"
       else
