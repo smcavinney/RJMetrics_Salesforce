@@ -13,7 +13,7 @@ RJMetrics datawarehouse. From there you can do
 [all sorts of stuff](http://rjmetrics.com/product) and relate it back to your
 transactional or payment database.
 
-**PLEASE NOTE:**
+**PLEASE NOTE:**  
 This app is not endorsed or supported by RJMetrics Inc. or Salesforce.com
 This app will have a lot of api calls on your SalesforceDatabase.
 You can exclude specific collections by adding them to the skipped_tables array as below.

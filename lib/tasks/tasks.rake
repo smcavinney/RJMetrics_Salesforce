@@ -4,16 +4,6 @@ require 'databasedotcom'
 require 'rjmetrics_client'
 require 'enumerator'
 
-def rjpush(object_array, sobject, rj_client)
-    sobject = sobject.gsub("__", "_")
-    if rj_client.authenticated?
-        puts "created"
-        return rj_client.pushData(sobject, object_array)
-    else
-        puts 'rj not authenticated'
-    end
-end
-
 
 task :sync_events => :environment do
 	client = Databasedotcom::Client.new
@@ -26,7 +16,7 @@ task :sync_events => :environment do
 	    puts 'not authed'
 	end
 
-  syncer = SyncEvents.new(client)
+  syncer = SyncEvents.new(client, rj_client)
 
   relevant_tables = syncer.filter_sobjects(skipped_tables)
   relevant_tables = [relevant_tables[0]]
@@ -40,14 +30,5 @@ task :sync_events => :environment do
       puts 'Cannot be queried'
     end
 
-    formatted_records = records.map{|record| SyncEvents.format_record(record) }
-
-    if formatted_records.count > 5000
-      puts "Large Query #{formatted_records.count} records, is this needed?"
-    end
-
-    formatted_records.each_slice(100) {|records_to_push|
-      rjpush(records_to_push, sobject, rj_client)
-    }
   end
 end
