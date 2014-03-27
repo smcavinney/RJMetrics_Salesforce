@@ -21,10 +21,13 @@ class SyncEvents
     records.map(&retrieve_records)
 
     while records.next_page?
+      puts "records while loop"
       paged_records.each_slice(100) {|records_to_push|
         rjpush(records_to_push, sobject)
       }
-      paged_records = records.next_page
+      paged_records = []
+      record = records.next_page
+      record.map(&retrieve_records)
     end
 
     paged_records
@@ -34,7 +37,7 @@ class SyncEvents
       formatted_records = object_array.map{|record| format_record(record) }
       sobject = sobject.gsub("__", "_")
       if @rj_client.authenticated?
-          puts "created"
+          puts "starting rj push"
           return @rj_client.pushData(sobject, formatted_records)
           puts "created"
       else
