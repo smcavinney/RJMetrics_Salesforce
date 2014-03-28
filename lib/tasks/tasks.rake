@@ -8,7 +8,7 @@ require 'enumerator'
 task :sync_events => :environment do
 	client = Databasedotcom::Client.new
 	client.authenticate :username => ENV["SF_USERNAME"], :password => ENV["SF_PASSWORD"]  #=> "the-oauth-token"
-	skipped_tables = ["LeadFeed", "AccountFeed", "ContactHistory", "LoginHistory", "OpportunityHistory", "LeadHistory" ]
+	skipped_tables = ["ActivityHistory", "AccountHistory" "LeadFeed", "AccountFeed", "ContactHistory", "LoginHistory", "OpportunityHistory", "LeadHistory" ]
 	rj_client = Client.new(ENV["RJ_ID"].to_i, ENV["RJ_KEY"])
 	if rj_client.authenticated?
 	    puts 'authed!'
@@ -25,11 +25,11 @@ task :sync_events => :environment do
   relevant_tables.map do |sobject|
     records = []
     puts sobject + " in the task.rake file"
-    #begin
+    begin
       records = syncer.get_records_for(sobject)
-    #rescue
-    #  puts 'Cannot be queried'
-    #end
+    rescue
+      puts 'Cannot be queried'
+    end
 
   end
 end
