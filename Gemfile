@@ -5,7 +5,7 @@ gem 'rails', '4.0.0'
 gem 'mixpanel_client'
 gem 'databasedotcom'
 gem 'httparty'
-gem 'rjmetrics-client', '0.1.0'
+gem 'rjmetrics-client', '0.5.0'
 gem 'figaro'
 
 

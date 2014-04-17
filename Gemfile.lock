@@ -83,7 +83,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rjmetrics-client (0.1.0)
+    rjmetrics-client (0.5.0)
       json (>= 1.7.7)
       rest-client (>= 1.6.7)
     sdoc (0.4.0)
@@ -121,6 +121,6 @@ DEPENDENCIES
   pg
   rails (= 4.0.0)
   rails_12factor
-  rjmetrics-client (= 0.1.0)
+  rjmetrics-client (= 0.5.0)
   sdoc
   sqlite3
