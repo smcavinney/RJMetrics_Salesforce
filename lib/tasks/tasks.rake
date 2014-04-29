@@ -26,8 +26,10 @@ task :sync_events => :environment do
   relevant_tables.map do |sobject|
     records = []
     puts sobject + " in the task.rake file"
+    begin
     records = syncer.get_records_for(sobject)
-
-
+    rescue
+      puts 'Cannot be queried'
+    end
   end
 end
