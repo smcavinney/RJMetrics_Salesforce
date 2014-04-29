@@ -78,7 +78,7 @@ class SyncEvents
       sobject = sobject.gsub("__", "_")
       if @rj_client.authenticated?
           puts "#{sobject} - starting rj push"
-          puts formatted_records
+          #puts formatted_records
           response = @rj_client.pushData(sobject, formatted_records)
           puts response
       else
