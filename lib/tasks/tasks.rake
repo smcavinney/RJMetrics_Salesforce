@@ -26,7 +26,7 @@ task :sync_events => :environment do
   relevant_tables.map do |sobject|
     records = []
     puts sobject + " in the task.rake file"
-    records = syncer.get_records_for(sobject)
+    records = syncer.get_records_for("User")
 
 
   end
