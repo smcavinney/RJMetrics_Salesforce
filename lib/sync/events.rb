@@ -51,7 +51,7 @@ class SyncEvents
         rjpush(task_records, sobject)
       else
         puts "pushing non-tasks"
-        puts paged_records
+        #puts paged_records
         rjpush(paged_records, sobject)
       end
       n = n + paged_records.count
@@ -67,7 +67,7 @@ class SyncEvents
       rjpush(task_records, sobject)
     else
       puts "pushing non-tasks"
-      puts paged_records
+      #puts paged_records
       rjpush(paged_records, sobject)
     end
   end
